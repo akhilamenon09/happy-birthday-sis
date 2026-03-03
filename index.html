@@ -9,13 +9,15 @@
         :root { --pink: #ffafcc; --cream: #fefae0; }
         body { margin: 0; font-family: 'Pangolin', cursive; background-color: var(--cream); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
         
+        h1 { font-family: 'Fredoka One', cursive; color: #ff8fab; text-shadow: 2px 2px white; }
+
         /* Welcome Page Stickers */
         .menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; z-index: 2; }
-        .sticker { width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; animation: float 3s infinite ease-in-out; background-color: var(--pink); font-weight: bold; }
+        .sticker { width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; animation: float 3s infinite ease-in-out; background-color: var(--pink); font-weight: bold; text-align: center; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        /* Overlays */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; }
+        /* Overlays (Hidden by default to prevent "messy" layout) */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; background-color: rgba(0,0,0,0.9); }
         
         /* Memories Section */
         #gallery { background: #9b2226 url('kiss-bg.jpg') center/cover; }
@@ -24,16 +26,18 @@
         .polaroid img { width: 160px; height: 160px; object-fit: cover; }
         @keyframes subtleFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
 
-        /* Starry Cake Background */
-        #stars { background: #090A0F; }
-        .star-bg { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        /* Starry Background */
+        #stars { background: #090A0F; position: relative; }
         .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s infinite; }
         @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.2); } }
+
+        /* Note Section */
+        .letter-paper { background: white; padding: 30px; border-radius: 15px; max-width: 80%; color: #5e548e; border: 2px dashed var(--pink); line-height: 1.6; }
 
         /* Readable Text for Miss You */
         .readable-text { font-family: 'Pangolin', cursive; font-weight: normal; color: white; font-size: 1.2rem; max-width: 80%; line-height: 1.5; }
 
-        .close-btn { position: absolute; bottom: 30px; right: 30px; background: #ffea00; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 1000; }
+        .close-btn { position: absolute; bottom: 30px; right: 30px; background: #ffea00; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 1000; box-shadow: 0 4px 0 #b1a200; }
     </style>
 </head>
 <body>
@@ -48,10 +52,11 @@
     </div>
 
     <div id="stars" class="overlay">
-        <div class="star-bg" id="starContainer"></div>
+        <div id="starContainer" style="position:absolute; width:100%; height:100%;"></div>
         <button class="close-btn" onclick="closeBox('stars')">BACK</button>
         <h2 style="color: white; z-index: 1;">Close your eyes, Chechi...</h2>
-        <div style="font-size: 80px; cursor: pointer;" onclick="this.innerHTML='🍰'">🎂</div>
+        <div id="cakeDisplay" style="font-size: 100px; cursor: pointer; z-index: 1;" onclick="blowCandle()">🎂</div>
+        <p id="cakeText" style="color: #a2d2ff; z-index: 1;">(Tap the cake to blow the candles!)</p>
     </div>
 
     <div id="gallery" class="overlay">
@@ -59,10 +64,18 @@
         <h1 style="color: white; font-family: 'Pacifico';">Memories</h1>
         <div class="polaroid-container">
             <div class="polaroid"><img src="chechi_moin.jpg"></div>
-            <div class="polaroid"><img src="photo2.jpg"></div>
+            <div class="polaroid" style="transform: rotate(3deg);"><img src="photo2.jpg"></div>
             <div class="polaroid"><img src="photo3.jpg"></div>
         </div>
-        <div style="color: white; font-family: 'Pacifico'; font-size: 2rem;">Together</div>
+        <div style="color: white; font-family: 'Pacifico'; font-size: 2rem; margin-top: 15px;">Together</div>
+    </div>
+
+    <div id="letter" class="overlay" style="background: #fdf0d5;">
+        <button class="close-btn" onclick="closeBox('letter')">BACK</button>
+        <div class="letter-paper">
+            <h3 style="font-family: 'Pacifico';">Dearest Chechi,</h3>
+            <p>May you have the very best in everything. Don't forget to cut the cake! Please take care of your health. Love you loads!</p>
+        </div>
     </div>
 
     <div id="missyou" class="overlay" style="background: #cdb4db;">
@@ -82,10 +95,15 @@
         }
         function closeBox(id) { document.getElementById(id).style.display = 'none'; }
 
+        function blowCandle() {
+            document.getElementById('cakeDisplay').innerHTML = '🍰';
+            document.getElementById('cakeText').innerHTML = '✨ Happy Birthday Chechi! ✨';
+        }
+
         function createStars() {
             const container = document.getElementById('starContainer');
             if(container.children.length > 0) return;
-            for(let i=0; i<50; i++) {
+            for(let i=0; i<60; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.width = Math.random() * 3 + 'px';
