@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Chechi! ✨</title>
+    <style>
+        :root {
+            --pink: #ffafcc;
+            --soft-blue: #a2d2ff;
+            --cream: #fefae0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: var(--cream);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1 { color: #ff8fab; text-shadow: 2px 2px white; }
+
+        /* The Sticker Menu */
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .sticker {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px dashed white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: transform 0.3s;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .sticker:hover { transform: scale(1.1) rotate(5deg); }
+        .s1 { background: #ffc8dd; }
+        .s2 { background: #ffafcc; }
+        .s3 { background: #bde0fe; }
+        .s4 { background: #a2d2ff; }
+
+        /* Full Screen Overlays */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            color: white;
+            text-align: center;
+        }
+
+        /* Section Specific Styles */
+        #stars { background: #0b0d17; } /* Starry Night */
+        #gallery { background: #9b2226; } /* Red Background */
+        #letter { background: #ffb3c1; color: #590d22; }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px;
+        }
+
+        .fairy-lights {
+            box-shadow: 0 0 15px #fff6a1, 0 0 25px #fff6a1;
+            margin: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+    <h1>Happy Birthday, Sis! ✨</h1>
+    <p>Click the stickers to explore...</p>
+
+    <div class="menu">
+        <div class="sticker s1" onclick="openBox('stars')">🎂<br>Make a Wish</div>
+        <div class="sticker s2" onclick="openBox('gallery')">📸<br>Memories</div>
+        <div class="sticker s3" onclick="openBox('letter')">✉️<br>A Note</div>
+        <div class="sticker s4" onclick="openBox('missyou')">💖<br>I Miss You</div>
+    </div>
+
+    <div id="stars" class="overlay">
+        <button class="close-btn" onclick="closeBox('stars')">Back</button>
+        <h2>✨ Close your eyes and make a wish... ✨</h2>
+        <div style="font-size: 100px;">🎂</div>
+        <p>Now blow the candles! 🕯️</p>
+        <button onclick="this.innerHTML='💨 Pffft! Happy Birthday!'; alert('Wish sent to the stars!')">Blow!</button>
+    </div>
+
+    <div id="gallery" class="overlay">
+        <button class="close-btn" onclick="closeBox('gallery')">Back</button>
+        <h2>Our Best Times ✨</h2>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <img src="https://via.placeholder.com/150" class="fairy-lights">
+            <img src="https://via.placeholder.com/150" class="fairy-lights">
+        </div>
+    </div>
+
+    <div id="letter" class="overlay">
+        <button class="close-btn" onclick="closeBox('letter')">Back</button>
+        <div style="background: white; padding: 40px; border-radius: 20px; max-width: 600px;">
+            <h2>To My Amazing Sister,</h2>
+            <p>You are the best person I know. I'm so lucky to have you...</p>
+            <p>Write your heartfelt message here! 🌸</p>
+        </div>
+    </div>
+
+    <div id="missyou" class="overlay" style="background: #cdb4db;">
+        <button class="close-btn" onclick="closeBox('missyou')">Back</button>
+        <h1>Enjoy your day to the fullest! 🎈</h1>
+        <p style="font-size: 1.5rem;">Distance might separate us today, but I'm celebrating with you in spirit. I miss you tons!</p>
+        <div style="font-size: 50px;">🫂💖✨</div>
+    </div>
+
+    <script>
+        function openBox(id) {
+            document.getElementById(id).style.display = 'flex';
+            // Start music on first click
+            document.getElementById('bgMusic').play();
+        }
+        function closeBox(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
