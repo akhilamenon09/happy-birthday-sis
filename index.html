@@ -3,41 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Chechi ✨</title>
+    <title>For My Dearest Chechi ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Pangolin&family=Pacifico&display=swap" rel="stylesheet">
     <style>
-        :root { --pink: #ffafcc; --cream: #fefae0; }
+        :root { --pink: #ffafcc; --cream: #fefae0; --hot-pink: #ff0a54; }
         body { margin: 0; font-family: 'Pangolin', cursive; background-color: var(--cream); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
         
-        h1 { font-family: 'Fredoka One', cursive; color: #ff8fab; text-shadow: 2px 2px white; }
+        h1 { font-family: 'Fredoka One', cursive; color: #ff8fab; text-shadow: 2px 2px white; text-align: center; }
 
-        /* Welcome Page Stickers */
+        /* Menu Stickers */
         .menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; z-index: 2; }
-        .sticker { width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; animation: float 3s infinite ease-in-out; background-color: var(--pink); font-weight: bold; text-align: center; }
+        .sticker { width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; animation: float 3s infinite ease-in-out; background-color: var(--pink); font-weight: bold; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        /* Overlays (Hidden by default to prevent "messy" layout) */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; background-color: rgba(0,0,0,0.9); }
+        /* Full Screen Overlays (The Separate Pages) */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        /* Memories Section */
-        #gallery { background: #9b2226 url('kiss-bg.jpg') center/cover; }
-        .polaroid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
-        .polaroid { background: white; padding: 10px 10px 30px 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: subtleFloat 4s infinite ease-in-out; }
-        .polaroid img { width: 160px; height: 160px; object-fit: cover; }
-        @keyframes subtleFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
-
-        /* Starry Background */
-        #stars { background: #090A0F; position: relative; }
+        /* 1. Starry Cake Section */
+        #stars { background: #090A0F; }
         .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s infinite; }
         @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.2); } }
 
-        /* Note Section */
-        .letter-paper { background: white; padding: 30px; border-radius: 15px; max-width: 80%; color: #5e548e; border: 2px dashed var(--pink); line-height: 1.6; }
+        /* 2. Memories Section */
+        #gallery { background: #9b2226 url('kiss-bg.jpg') center/cover; }
+        .readable-title { color: white; font-family: 'Pacifico'; font-size: 3.5rem; text-shadow: 0 0 15px rgba(0,0,0,0.8), 2px 2px 5px rgba(0,0,0,0.9); margin-bottom: 10px; }
+        .polaroid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
+        .polaroid { background: white; padding: 10px 10px 30px 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); animation: subtleFloat 4s infinite ease-in-out; }
+        .polaroid img { width: 160px; height: 160px; object-fit: cover; }
+        @keyframes subtleFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
 
-        /* Readable Text for Miss You */
-        .readable-text { font-family: 'Pangolin', cursive; font-weight: normal; color: white; font-size: 1.2rem; max-width: 80%; line-height: 1.5; }
+        /* 3. Note Section (Patterned + Floating Hearts) */
+        #letter { background-color: #fdf0d5; background-image: radial-gradient(#ffafcc 1px, transparent 1px); background-size: 20px 20px; }
+        .letter-paper { background: white; padding: 40px; border-radius: 20px; max-width: 80%; box-shadow: 0 15px 35px rgba(0,0,0,0.1); color: #5e548e; border: 3px dashed var(--pink); line-height: 1.8; font-size: 1.1rem; position: relative; z-index: 5; }
 
-        .close-btn { position: absolute; bottom: 30px; right: 30px; background: #ffea00; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 1000; box-shadow: 0 4px 0 #b1a200; }
+        /* 4. Miss You Section (Butterfly Animation) */
+        #missyou { background: #cdb4db; overflow: hidden; }
+        .glow-text { font-family: 'Pangolin', cursive; font-weight: bold; color: white; font-size: 1.3rem; max-width: 85%; line-height: 1.6; text-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 5; }
+
+        /* Floating Elements (Hearts/Butterflies) */
+        .floating-emoji { position: absolute; font-size: 25px; pointer-events: none; animation: fly 6s linear infinite; opacity: 0.7; }
+        @keyframes fly {
+            0% { transform: translateY(110vh) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-20vh) translateX(50px) rotate(360deg); opacity: 0; }
+        }
+
+        .close-btn { position: absolute; bottom: 30px; right: 30px; background: #ffea00; border: none; padding: 12px 25px; border-radius: 50px; cursor: pointer; font-family: 'Fredoka One', cursive; box-shadow: 0 5px 0 #b1a200; z-index: 1001; }
+        .close-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #b1a200; }
     </style>
 </head>
 <body>
@@ -54,34 +66,37 @@
     <div id="stars" class="overlay">
         <div id="starContainer" style="position:absolute; width:100%; height:100%;"></div>
         <button class="close-btn" onclick="closeBox('stars')">BACK</button>
-        <h2 style="color: white; z-index: 1;">Close your eyes, Chechi...</h2>
-        <div id="cakeDisplay" style="font-size: 100px; cursor: pointer; z-index: 1;" onclick="blowCandle()">🎂</div>
-        <p id="cakeText" style="color: #a2d2ff; z-index: 1;">(Tap the cake to blow the candles!)</p>
+        <h2 style="color: white; z-index: 1; font-family: 'Pacifico'; font-size: 2.5rem;">Close your eyes, Chechi...</h2>
+        <div id="cakeDisplay" style="font-size: 120px; cursor: pointer; z-index: 1; filter: drop-shadow(0 0 20px #fff6a1);" onclick="blowCandle()">🎂</div>
+        <p id="cakeText" style="color: #a2d2ff; z-index: 1; font-size: 1.2rem;">(Tap the cake to blow the candles!)</p>
     </div>
 
     <div id="gallery" class="overlay">
         <button class="close-btn" onclick="closeBox('gallery')">BACK</button>
-        <h1 style="color: white; font-family: 'Pacifico';">Memories</h1>
+        <h1 class="readable-title">Memories</h1>
         <div class="polaroid-container">
             <div class="polaroid"><img src="chechi_moin.jpg"></div>
-            <div class="polaroid" style="transform: rotate(3deg);"><img src="photo2.jpg"></div>
+            <div class="polaroid" style="transform: rotate(4deg);"><img src="photo2.jpg"></div>
             <div class="polaroid"><img src="photo3.jpg"></div>
         </div>
-        <div style="color: white; font-family: 'Pacifico'; font-size: 2rem; margin-top: 15px;">Together</div>
+        <h2 class="readable-title" style="font-size: 2.5rem; margin-top: 20px;">Together</h2>
     </div>
 
-    <div id="letter" class="overlay" style="background: #fdf0d5;">
+    <div id="letter" class="overlay">
+        <div id="heartContainer" style="position:absolute; width:100%; height:100%;"></div>
         <button class="close-btn" onclick="closeBox('letter')">BACK</button>
         <div class="letter-paper">
-            <h3 style="font-family: 'Pacifico';">Dearest Chechi,</h3>
-            <p>May you have the very best in everything. Don't forget to cut the cake! Please take care of your health. Love you loads!</p>
+            <h3 style="font-family: 'Pacifico'; font-size: 1.8rem; margin-top: 0; color: var(--hot-pink);">Dearest Chechi,</h3>
+            <p>May you have the very best in everything. Don't forget to cut the cake! Please take care of your health.</p>
+            <p style="font-weight: bold; font-size: 1.3rem;">Love you loads... ❤️</p>
         </div>
     </div>
 
-    <div id="missyou" class="overlay" style="background: #cdb4db;">
+    <div id="missyou" class="overlay">
+        <div id="butterflyContainer" style="position:absolute; width:100%; height:100%;"></div>
         <button class="close-btn" onclick="closeBox('missyou')">BACK</button>
-        <h1 style="color: white;">Enjoy your day! 🎈</h1>
-        <p class="readable-text">Made this especially for you, my dearest chechi. Love you. I miss you tons!</p>
+        <h1 style="color: white; font-size: 3rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">Enjoy your day! 🎈</h1>
+        <p class="glow-text">Made this especially for you, my dearest chechi. Love you. I miss you tons!</p>
     </div>
 
     <script>
@@ -91,27 +106,36 @@
         function openBox(id) { 
             document.getElementById(id).style.display = 'flex'; 
             document.getElementById('bgMusic').play();
-            if(id === 'stars') createStars();
+            if(id === 'stars') createElements('starContainer', 'star', 60);
+            if(id === 'letter') createElements('heartContainer', 'floating-emoji', 20, ['❤️', '💖', '🌸']);
+            if(id === 'missyou') createElements('butterflyContainer', 'floating-emoji', 15, ['🦋', '✨', '🎈']);
         }
+        
         function closeBox(id) { document.getElementById(id).style.display = 'none'; }
 
         function blowCandle() {
             document.getElementById('cakeDisplay').innerHTML = '🍰';
-            document.getElementById('cakeText').innerHTML = '✨ Happy Birthday Chechi! ✨';
+            document.getElementById('cakeText').innerHTML = '✨ Your wish is sent to the stars! ✨';
+            document.getElementById('cakeText').style.color = "#fff6a1";
         }
 
-        function createStars() {
-            const container = document.getElementById('starContainer');
+        function createElements(containerId, className, count, emojis = null) {
+            const container = document.getElementById(containerId);
             if(container.children.length > 0) return;
-            for(let i=0; i<60; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.width = Math.random() * 3 + 'px';
-                star.style.height = star.style.width;
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(star);
+            for(let i=0; i<count; i++) {
+                const el = document.createElement('div');
+                el.className = className;
+                if(emojis) {
+                    el.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                } else {
+                    el.style.width = Math.random() * 3 + 'px';
+                    el.style.height = el.style.width;
+                }
+                el.style.left = Math.random() * 100 + '%';
+                el.style.top = Math.random() * 100 + '%';
+                el.style.animationDelay = Math.random() * 5 + 's';
+                el.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                container.appendChild(el);
             }
         }
     </script>
