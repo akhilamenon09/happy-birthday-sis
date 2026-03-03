@@ -15,6 +15,7 @@
 
         body {
             margin: 0;
+            /* Using Pangolin for body text, which is cute but not overly bold */
             font-family: 'Pangolin', cursive;
             background-color: var(--cream);
             display: flex;
@@ -88,7 +89,7 @@
 
         /* Collage/Memories Section (Based on your photo) */
         #gallery { 
-            background: #9b2226; 
+            /* Your red kiss background, with a subtle float animation on frames */
             background-image: url('kiss-bg.jpg'); /* Upload your kiss background */
             background-size: cover;
             background-position: center;
@@ -103,16 +104,40 @@
             margin: 20px;
         }
 
+        /* Float animation for polaroids */
+        @keyframes floatPolaroid {
+            0% { transform: rotate(-5deg) translateY(0px); }
+            50% { transform: rotate(-5deg) translateY(-10px); }
+            100% { transform: rotate(-5deg) translateY(0px); }
+        }
+
         .polaroid {
             background: white;
             padding: 10px 10px 35px 10px;
             box-shadow: 0 8px 15px rgba(0,0,0,0.4);
             transition: 0.3s;
+            animation: floatPolaroid 4s infinite ease-in-out;
         }
+
         .polaroid img { width: 180px; height: 180px; object-fit: cover; }
-        .p1 { transform: rotate(-5deg); }
-        .p2 { transform: rotate(2deg); }
-        .p3 { transform: rotate(-2deg); }
+        
+        /* Adjusting rotations based on position, matching your previous layout */
+        .p1 { animation-delay: 0s; } /* first pic */
+        .p2 { transform: rotate(2deg); animation-name: floatPolaroid2; animation-delay: 1s; } /* middle pic */
+        .p3 { transform: rotate(-2deg); animation-name: floatPolaroid3; animation-delay: 0.5s; } /* last pic */
+
+        /* Separate float animations to keep the base rotation for each pic */
+        @keyframes floatPolaroid2 {
+            0% { transform: rotate(2deg) translateY(0px); }
+            50% { transform: rotate(2deg) translateY(-10px); }
+            100% { transform: rotate(2deg) translateY(0px); }
+        }
+
+        @keyframes floatPolaroid3 {
+            0% { transform: rotate(-2deg) translateY(0px); }
+            50% { transform: rotate(-2deg) translateY(-10px); }
+            100% { transform: rotate(-2deg) translateY(0px); }
+        }
 
         .together-title {
             font-family: 'Pacifico', cursive;
@@ -145,8 +170,33 @@
             border: 2px dashed #ffafcc;
         }
 
-        /* Cake Style */
-        .cake { font-size: 100px; cursor: pointer; }
+        /* Cake Section with animated starry background */
+        #stars { 
+            background: #090A0F;
+            position: relative; 
+            overflow: hidden; 
+        }
+
+        /* Star styling for animation */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 2s infinite;
+        }
+
+        /* Star twinkle animation */
+        @keyframes twinkle {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* Add more stars with different sizes and positions in your CSS for a better effect,
+           or use the javascript method from previous turns to generate them dynamically */
+
+        .cake { font-size: 100px; cursor: pointer; position: relative; z-index: 1; }
     </style>
 </head>
 <body>
@@ -164,16 +214,20 @@
         <div class="sticker s4" onclick="openBox('missyou')">💖<br>I Miss You</div>
     </div>
 
-    <div id="stars" class="overlay" style="background: #090A0F;">
+    <div id="stars" class="overlay">
+        <div class="star" style="width: 2px; height: 2px; top: 10%; left: 20%; animation-delay: 0.1s;"></div>
+        <div class="star" style="width: 3px; height: 3px; top: 30%; left: 80%; animation-delay: 0.5s;"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 70%; left: 50%; animation-delay: 1.2s;"></div>
+        <div class="star" style="width: 4px; height: 4px; top: 85%; left: 15%; animation-delay: 0.9s;"></div>
         <button class="close-btn" onclick="closeBox('stars')">BACK</button>
-        <h2 style="color: white;">Close your eyes, Chechi...</h2>
+        <h2 style="color: white; position: relative; z-index: 1;">Close your eyes, Chechi...</h2>
         <div class="cake" id="cake" onclick="blowCandle()">🎂</div>
-        <p id="wish-msg" style="color: #a2d2ff;">(Tap the cake to blow the candles!)</p>
+        <p id="wish-msg" style="color: #a2d2ff; position: relative; z-index: 1;">(Tap the cake to blow the candles!)</p>
     </div>
 
     <div id="gallery" class="overlay">
         <button class="close-btn" onclick="closeBox('gallery')">BACK</button>
-        <h1 style="color: white; font-size: 4rem; letter-spacing: 10px;">IMI</h1>
+        <h1 style="color: white; font-size: 4rem; letter-spacing: 10px;">Memories</h1>
         
         <div class="polaroid-container">
             <div class="polaroid p1"><img src="photo1.jpg"></div>
@@ -196,7 +250,7 @@
     <div id="missyou" class="overlay" style="background: #cdb4db;">
         <button class="close-btn" onclick="closeBox('missyou')">BACK</button>
         <h1 style="color: white;">Enjoy your day! 🎈</h1>
-        <p style="color: white; font-size: 1.2rem; max-width: 400px;">Made this especially for you, my dearest chechi. Love you. I miss you tons!</p>
+        <p style="color: white; font-size: 1.2rem; max-width: 400px; font-family: 'Pangolin', cursive;">Made this especially for you, my dearest chechi. Love you. I miss you tons!</p>
     </div>
 
     <script>
@@ -208,6 +262,7 @@
         function openBox(id) {
             document.getElementById(id).style.display = 'flex';
             document.getElementById('bgMusic').play();
+            // Function to generate stars dynamically could be added here for Section 1
         }
 
         function closeBox(id) {
